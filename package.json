@@ -1,6 +1,6 @@
 {
   "name": "homebridge-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Incur-based CLI and MCP surface for the Homebridge UI API.",
   "type": "module",
   "license": "MIT",
@@ -37,6 +37,9 @@
     "test": "vitest run",
     "lint": "eslint .",
     "format": "prettier --check .",
+    "release:validate": "node scripts/validate-release.mjs",
+    "release:validate:local": "node scripts/validate-release.mjs --skip-registry",
+    "release:notes": "node scripts/extract-changelog.mjs",
     "prepack": "bun run build"
   },
   "dependencies": {

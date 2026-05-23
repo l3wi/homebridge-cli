@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1
+
+- Added GitHub Actions release checks and main-branch npm publish automation.
+- Added npm Trusted Publisher release support through GitHub OIDC.
+- Added repository agent instructions for release PRs, changelog updates, and publish guardrails.
+
 ## 0.1.0
 
 - Scaffolded an `incur` based Homebridge CLI/MCP binary.

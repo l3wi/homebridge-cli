@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.2
+
+- Added release validation for existing Git tags so release PRs fail before merging if their target tag has already been created.
+- Bumped the pending release after the failed `0.1.1` publish created `v0.1.1`.
+
 ## 0.1.1
 
 - Added GitHub Actions release checks and main-branch npm publish automation.

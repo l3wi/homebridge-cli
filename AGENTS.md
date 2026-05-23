@@ -29,6 +29,7 @@ Every pull request to `main` must be release-ready:
 5. Run `bun run release:validate:local` locally to verify semver and changelog shape.
 
 The GitHub `Release Check` workflow enforces the real release gate on pull requests to `main`, including that the package version is not already published on npm.
+It also fails if the matching `vX.Y.Z` Git tag already exists on `origin`; if a failed release created a tag without publishing to npm, bump to the next patch version instead of reusing that tag.
 
 ## Publishing
 

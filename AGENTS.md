@@ -46,6 +46,8 @@ npm Trusted Publisher is configured for:
 - Workflow filename: `release.yml`
 - Allowed action: `npm publish`
 
+Trusted Publisher requires npm CLI `11.5.1` or newer in GitHub Actions. Do not remove the workflow step that upgrades npm before publishing.
+
 ## Guardrails
 
 - Do not remove or bypass `.github/workflows/release-check.yml`.

@@ -33,6 +33,12 @@ jobs:
           node-version: "22"
           registry-url: "https://registry.npmjs.org"
 
+      - name: Set up npm for trusted publishing
+        run: |
+          npm install -g npm@latest
+          node --version
+          npm --version
+
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
@@ -50,8 +56,9 @@ jobs:
 
       - name: Ensure release tag does not already exist
         run: |
-          if git rev-parse "${{ steps.package.outputs.tag }}" >/dev/null 2>&1; then
-            echo "Tag ${{ steps.package.outputs.tag }} already exists."
+          TAG_SHA="$(git rev-parse "${{ steps.package.outputs.tag }}" 2>/dev/null || true)"
+          if [ -n "$TAG_SHA" ] && [ "$TAG_SHA" != "$GITHUB_SHA" ]; then
+            echo "Tag ${{ steps.package.outputs.tag }} already exists at $TAG_SHA, expected $GITHUB_SHA."
             exit 1
           fi
 
@@ -80,6 +87,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          if gh release view "${{ steps.package.outputs.tag }}" >/dev/null 2>&1; then
+            echo "Release ${{ steps.package.outputs.tag }} already exists."
+            exit 0
+          fi
           gh release create "${{ steps.package.outputs.tag }}" \
             --target "$GITHUB_SHA" \
             --title "${{ steps.package.outputs.tag }}" \

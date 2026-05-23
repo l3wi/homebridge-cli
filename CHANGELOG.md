@@ -4,6 +4,7 @@
 
 - Added GitHub Actions release checks and main-branch npm publish automation.
 - Added npm Trusted Publisher release support through GitHub OIDC.
+- Updated the release workflow to install a Trusted Publisher-compatible npm CLI.
 - Added repository agent instructions for release PRs, changelog updates, and publish guardrails.
 
 ## 0.1.0

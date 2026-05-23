@@ -3,15 +3,32 @@
   "version": "0.1.0",
   "description": "Incur-based CLI and MCP surface for the Homebridge UI API.",
   "type": "module",
-  "bin": {
-    "homebridge": "./bin/homebridge.js",
-    "homebridge-cli": "./bin/homebridge.js"
+  "license": "MIT",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js"
+    }
   },
+  "bin": {
+    "homebridge": "bin/homebridge.js",
+    "homebridge-cli": "bin/homebridge.js"
+  },
+  "keywords": [
+    "homebridge",
+    "cli",
+    "mcp",
+    "automation",
+    "smart-home"
+  ],
   "files": [
     "bin",
     "dist/src",
     "README.md",
     "CHANGELOG.md",
+    "LICENSE",
     "docs"
   ],
   "scripts": {

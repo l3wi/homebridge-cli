@@ -29,6 +29,8 @@ if (!changelogHeading.test(changelog)) {
   fail(`CHANGELOG.md must include a release section for ${version}.`);
 }
 
+await assertReleaseTagIsAvailable(version);
+
 if (!skipRegistry) {
   await assertVersionIsUnpublished(packageName, version);
 }
@@ -54,6 +56,41 @@ async function assertVersionIsUnpublished(packageName, version) {
   fail(
     `${packageName}@${version} is already published. Bump package.json first.`,
   );
+}
+
+async function assertReleaseTagIsAvailable(version) {
+  const tag = `v${version}`;
+
+  try {
+    const { stdout } = await execFileAsync("git", [
+      "ls-remote",
+      "--tags",
+      "origin",
+      tag,
+    ]);
+    if (stdout.trim()) {
+      fail(`Git tag ${tag} already exists on origin. Bump package.json first.`);
+    }
+  } catch (error) {
+    const localTagExists = await hasLocalTag(tag);
+    if (localTagExists) {
+      fail(`Git tag ${tag} already exists locally. Bump package.json first.`);
+    }
+    if (error && typeof error === "object") {
+      const stderr = String(error.stderr ?? "");
+      if (stderr.includes("No remote configured")) return;
+    }
+    throw error;
+  }
+}
+
+async function hasLocalTag(tag) {
+  try {
+    await execFileAsync("git", ["rev-parse", "--verify", "--quiet", tag]);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function escapeRegExp(value) {

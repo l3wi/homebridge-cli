@@ -160,3 +160,5 @@ When the release commit lands on `main`, the `Release` workflow:
 7. Publishes the package to npm with provenance through npm Trusted Publisher OIDC.
 
 Repository setup required once: configure npm Trusted Publisher for `l3wi/homebridge-cli` with workflow filename `release.yml` and the `npm publish` permission.
+
+`package.json` must keep `repository.url` aligned with `https://github.com/l3wi/homebridge-cli`; npm provenance verification rejects publishes when repository metadata does not match the Trusted Publisher source.

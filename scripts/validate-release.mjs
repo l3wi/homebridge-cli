@@ -9,6 +9,7 @@ const packageJson = JSON.parse(await readFile("package.json", "utf8"));
 const changelog = await readFile("CHANGELOG.md", "utf8");
 const version = packageJson.version;
 const packageName = packageJson.name;
+const expectedRepositoryUrl = "git+https://github.com/l3wi/homebridge-cli.git";
 
 if (!packageName || typeof packageName !== "string") {
   fail("package.json must define a package name.");
@@ -29,6 +30,7 @@ if (!changelogHeading.test(changelog)) {
   fail(`CHANGELOG.md must include a release section for ${version}.`);
 }
 
+assertRepositoryMetadata(packageJson, expectedRepositoryUrl);
 await assertReleaseTagIsAvailable(version);
 
 if (!skipRegistry) {
@@ -81,6 +83,19 @@ async function assertReleaseTagIsAvailable(version) {
       if (stderr.includes("No remote configured")) return;
     }
     throw error;
+  }
+}
+
+function assertRepositoryMetadata(packageJson, expectedUrl) {
+  const repository =
+    typeof packageJson.repository === "string"
+      ? { url: packageJson.repository }
+      : packageJson.repository;
+
+  if (!repository || repository.url !== expectedUrl) {
+    fail(
+      `package.json repository.url must be ${expectedUrl} for npm provenance.`,
+    );
   }
 }
 

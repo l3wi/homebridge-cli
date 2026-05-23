@@ -1,0 +1,42 @@
+{
+  "name": "homebridge-cli",
+  "version": "0.1.0",
+  "description": "Incur-based CLI and MCP surface for the Homebridge UI API.",
+  "type": "module",
+  "bin": {
+    "homebridge": "./bin/homebridge.js",
+    "homebridge-cli": "./bin/homebridge.js"
+  },
+  "files": [
+    "bin",
+    "dist/src",
+    "README.md",
+    "CHANGELOG.md",
+    "docs"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "coverage:live": "bun run build && node dist/src/index.js api coverage --no-auth --url http://pi.lan:8581 --format json",
+    "test": "vitest run",
+    "lint": "eslint .",
+    "format": "prettier --check .",
+    "prepack": "bun run build"
+  },
+  "dependencies": {
+    "incur": "^0.4.6",
+    "socket.io-client": "^4.8.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.27.0",
+    "@types/node": "^22.15.21",
+    "eslint": "^9.27.0",
+    "globals": "^17.6.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.59.4",
+    "vitest": "^3.1.4"
+  },
+  "engines": {
+    "node": ">=20.11"
+  }
+}

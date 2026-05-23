@@ -155,12 +155,7 @@ When the release commit lands on `main`, the `Release` workflow:
 2. Requires a matching changelog section.
 3. Fails if that package version is already published on npm.
 4. Runs build, tests, lint, format, audit, and `npm pack --dry-run`.
-5. Verifies the `NPM_TOKEN` repository secret with `npm whoami`.
-6. Creates the `vX.Y.Z` Git tag and GitHub release using the changelog notes.
-7. Publishes the package to npm with provenance.
+5. Creates the `vX.Y.Z` Git tag and GitHub release using the changelog notes.
+6. Publishes the package to npm with provenance through npm Trusted Publisher OIDC.
 
-Repository setup required once:
-
-```sh
-gh secret set NPM_TOKEN --body '<npm automation token>'
-```
+Repository setup required once: configure npm Trusted Publisher for `l3wi/homebridge-cli` with workflow filename `release.yml` and the `npm publish` permission.

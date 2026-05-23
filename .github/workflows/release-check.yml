@@ -4,14 +4,6 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - "package.json"
-      - "CHANGELOG.md"
-      - "src/**"
-      - "bin/**"
-      - "scripts/**"
-      - ".github/workflows/**"
-      - "bun.lock"
 
 permissions:
   contents: read

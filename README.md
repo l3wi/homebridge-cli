@@ -154,8 +154,9 @@ When the release commit lands on `main`, the `Release` workflow:
 1. Validates that `package.json` has a semver version.
 2. Requires a matching changelog section.
 3. Fails if that package version is already published on npm.
-4. Runs build, tests, lint, format, audit, and `npm pack --dry-run`.
-5. Creates the `vX.Y.Z` Git tag and GitHub release using the changelog notes.
-6. Publishes the package to npm with provenance through npm Trusted Publisher OIDC.
+4. Installs a current npm CLI for Trusted Publisher support.
+5. Runs build, tests, lint, format, audit, and `npm pack --dry-run`.
+6. Creates the `vX.Y.Z` Git tag and GitHub release using the changelog notes.
+7. Publishes the package to npm with provenance through npm Trusted Publisher OIDC.
 
 Repository setup required once: configure npm Trusted Publisher for `l3wi/homebridge-cli` with workflow filename `release.yml` and the `npm publish` permission.

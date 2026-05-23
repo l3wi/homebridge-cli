@@ -56,9 +56,14 @@ jobs:
 
       - name: Ensure release tag does not already exist
         run: |
-          TAG_SHA="$(git rev-parse "${{ steps.package.outputs.tag }}" 2>/dev/null || true)"
+          TAG="${{ steps.package.outputs.tag }}"
+          TAG_SHA=""
+          if git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null 2>&1; then
+            git fetch --force --depth=1 origin "refs/tags/$TAG:refs/tags/$TAG"
+            TAG_SHA="$(git rev-list -n 1 "$TAG")"
+          fi
           if [ -n "$TAG_SHA" ] && [ "$TAG_SHA" != "$GITHUB_SHA" ]; then
-            echo "Tag ${{ steps.package.outputs.tag }} already exists at $TAG_SHA, expected $GITHUB_SHA."
+            echo "Tag $TAG already exists at $TAG_SHA, expected $GITHUB_SHA."
             exit 1
           fi
 

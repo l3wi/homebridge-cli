@@ -138,3 +138,29 @@ npm publish --dry-run --access public
 ```
 
 The package ships `bin/homebridge.js`, compiled files from `dist/src`, type declarations, docs, changelog, and license. `prepack` runs `bun run build` so published artifacts are regenerated before packing.
+
+### Release Workflow
+
+Releases are automated from `main`.
+
+Before merging to `main`:
+
+- Bump `version` in `package.json`.
+- Add a matching `## x.y.z` section in `CHANGELOG.md`.
+- Open a pull request targeting `main`; the `Release Check` workflow validates the version, changelog, tests, lint, format, audit, and package dry-run.
+
+When the release commit lands on `main`, the `Release` workflow:
+
+1. Validates that `package.json` has a semver version.
+2. Requires a matching changelog section.
+3. Fails if that package version is already published on npm.
+4. Runs build, tests, lint, format, audit, and `npm pack --dry-run`.
+5. Verifies the `NPM_TOKEN` repository secret with `npm whoami`.
+6. Creates the `vX.Y.Z` Git tag and GitHub release using the changelog notes.
+7. Publishes the package to npm with provenance.
+
+Repository setup required once:
+
+```sh
+gh secret set NPM_TOKEN --body '<npm automation token>'
+```

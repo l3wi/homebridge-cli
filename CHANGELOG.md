@@ -8,4 +8,5 @@
 - Added raw API request commands and live Swagger coverage verification.
 - Added REST-backed `plugins outdated` plus Socket.IO-backed `plugins update` and `plugins update-all` commands for Homebridge plugin jobs.
 - Added publish metadata, importable package exports, license text, and npm-ready README documentation.
+- Added GitHub Actions release checks and main-branch npm publish automation.
 - Added tests for credentials, client request behavior, operation metadata, and Swagger coverage helpers.

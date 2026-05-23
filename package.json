@@ -37,6 +37,9 @@
     "test": "vitest run",
     "lint": "eslint .",
     "format": "prettier --check .",
+    "release:validate": "node scripts/validate-release.mjs",
+    "release:validate:local": "node scripts/validate-release.mjs --skip-registry",
+    "release:notes": "node scripts/extract-changelog.mjs",
     "prepack": "bun run build"
   },
   "dependencies": {

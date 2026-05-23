@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3
+
+- Added npm provenance-compatible repository metadata to `package.json`.
+- Added release validation for repository metadata required by npm Trusted Publisher provenance.
+- Bumped the pending release after the failed `0.1.2` publish created `v0.1.2`.
+
 ## 0.1.2
 
 - Added release validation for existing Git tags so release PRs fail before merging if their target tag has already been created.
